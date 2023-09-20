@@ -5,7 +5,7 @@ In our framework, the initial poses of markers and camera groups are calculated 
 
 Our algorithm facilitates the reconstruction of large scenes with **different marker sizes**, and its accuracy and speed of map building are shown to surpass existing methods. Our approach is suitable for a wide range of scenarios, including laboratories, basements, warehouses, and other industrial settings.
 
-**15 Sep 2023**: Release *g2otypes* code and datasets, other code will be upload after the paper review.
+**15 Sep 2023**: Release *README.md*, some *results* and *datasets*, other code will be upload after the paper review.
 
 [![](./doc/cover.png "cover")](https://youtu.be/j9Kne47aS_0?si=lgpc-zmrsZ-7cl_W)
 
@@ -163,15 +163,21 @@ roslaunch pnpmapper  buildmap.launch
 CHECK your CMakeLists.txt and Build
 ```
 <li>
+
 Calculate extrinsics of cameras, in our dataset, we use TWO different setups for cameras, you can use the following script to calculate. 
+
 ``` bash
 python python/calc_extrinsics.py
 ```
+
 Maybe you want to calibrate it by other repos (e.g. [Kalibr](https://github.com/ethz-asl/kalibr.git))
 
 $$T^{F^i} = T_{g} \cdot T^{F^i}_{g}$$
+
 in *[configs_build.yaml](configs/config_buildmap.yaml)* and *[config_localization.yaml](configs/config_localization.yaml)*
+
 $$extrinsicsT\{i\}g = T^{F^{i}}_{g}$$
+
 </li>
 Collect images and publish them via ROS, this commmand should be  call firstly because this script need to parse marker size in sfm.toml and write this size information to ./configs/env_ids.json
 
