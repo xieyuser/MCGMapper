@@ -67,7 +67,7 @@ The perfermence in Degol's work are stored in *./doc/public*.
 <img src="./doc/gifs/public/muf_floor2.gif" width="560" height="400" />
 
 ### 1.4 Proposed Marker Datasets of Same Size
-The perfermence in Degol's work are stored in *./doc/same-size*.
+The perfermence in proposed marker datasets of same size are stored in *./doc/same-size*.
 
 <img src="./doc/gifs/same-size/Indoor_Room_2.gif" width="280" height="200" />
 <img src="./doc/gifs/same-size/Indoor_Room_2_Rec.gif" width="280" height="200" />
@@ -75,7 +75,7 @@ The perfermence in Degol's work are stored in *./doc/same-size*.
 
 ### 1.5 Proposed Marker Datasets of Different Size
 
-The perfermence in Degol's work are stored in *./doc/diff-size*.
+The perfermence in proposed marker datasets of different size are stored in *./doc/diff-size*.
 
 <img src="./doc/gifs/diff-size/Cali_Room.gif" width="280" height="200" />
 <img src="./doc/gifs/diff-size/Cali_Room_Rec.gif" width="280" height="200" />
@@ -85,15 +85,42 @@ The perfermence in Degol's work are stored in *./doc/diff-size*.
 ## 2. Prerequisites
 2.1 Ubuntu and ROS. 
 
-We build this repo by [RoboStack](https://robostack.github.io/). You can install different ROS distributions in **Conda Environment** via [RoboStack Installation](https://robostack.github.io/). Source code has been tested in **ROS Kinect**, **ROS Melodic** and **ROS Noetic**.
+You can build this repo in base environment via **sudo**, build some packages and install them to */usr/local*. This is a common way for build SLAM repos. 
+
+But we build this repo by [RoboStack](https://robostack.github.io/). You can install different ROS distributions in **Conda Environment** via [RoboStack Installation](https://robostack.github.io/). Source code has been tested in **ROS Noetic**. Building in **conda** may be more difficult, but the ability to isolate the environment is worth doing so.
 
 2.2 Some packages can be installed by:
 ``` Bash
-    conda(mamba) install --file conda_pkgs.txt
+    # create env
+    conda create -n noetic python=3.8
+    conda activate noetic
+
+    # install ros
+    conda install mamba
+    mamba install ros-noetic-desktop-full -c RoboStack
+    mamba install ros-noetic-rviz-visual-tools -c RoboStack
+
+    # install other packages
+    mamba install --file conda_pkgs.txt
+    mamba install -c open3d-admin open3d
+    pip install pupil-apriltags
 ```
 
+2.3 Build apriltag in conda
+``` bash
+# download
+git clone https://github.com/AprilRobotics/apriltag.git
+cd apriltag && mkdir build && ca build
 
-## 3. Build and Source
+# cmake options, -DCMAKE_INSTALL_PREFIX is path of your conda environment
+cmake -DCMAKE_INSTALL_PREFIX=/home/xieys/miniconda3/envs/noetic/ -DBUILD_PYTHON_WRAPPER=OFF  ..
+
+# make && make install
+make -j60
+make install
+```
+
+## 3. Build PnPMapper and Source
 Clone the repository and catkin_make:
 ``` Bash
     # build
