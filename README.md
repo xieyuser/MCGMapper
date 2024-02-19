@@ -1,4 +1,4 @@
-# PnPMapper
+# MCGMapper
 ## Light-Weight Incremental Structure from Motion and Visual Localization With Planar Markers and Camera Groups
 
 In our framework, the initial poses of markers and camera groups are calculated with **Perspective-n-Points (PnP)** in the front-end, while **bundle adjustment methods customized for markers and camera groups** are designed in the back-end to optimize the 6-DOF pose directly. 
@@ -120,12 +120,12 @@ make -j60
 make install
 ```
 
-## 3. Build PnPMapper and Source
+## 3. Build MCGMapper and Source
 Clone the repository and catkin_make:
 ``` Bash
     # build
     mkdir -p ~/catkin_ws/src
-    git clone https://github.com/xieyuser/PnPMapper.git
+    git clone https://github.com/xieyuser/MCGMapper.git
     cd ../
     catkin_make   # change some DEFINITIONS
 
@@ -178,7 +178,7 @@ python/play_bag_mono.py $DATA_ROOT
 # e.g. python/play_bag.py ~/Desktop/data/dataset-release/eccv/cee_day/
 
 # start mapping service
-roslaunch pnpmapper  buildmap.launch
+roslaunch MCGMapper  buildmap.launch
 ```
 
 *Multiple Cameras:*
@@ -213,7 +213,7 @@ python/play_bag.py $DATA_ROOT
 # e.g. python/play_bag.py ~/Desktop/data/dataset-release/ours/dataset-indoor2-120-same/
 
 # start mapping service
-roslaunch pnpmapper buildmap.launch
+roslaunch MCGMapper buildmap.launch
 ```
 </ol>
 
@@ -244,7 +244,7 @@ cp ~/optimized_map.json configs/map.json
 start localization node
 
 ``` bash
-roslaunch pnpmapper localization.launch
+roslaunch MCGMapper localization.launch
 ```
 </li>
 
